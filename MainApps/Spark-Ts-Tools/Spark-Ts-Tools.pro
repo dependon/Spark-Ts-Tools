@@ -9,7 +9,7 @@ QT       += network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = Spark-Ts-Tools
+TARGET = spark-ts-tools
 TEMPLATE = app
 
 include(./../../Path.pri)
