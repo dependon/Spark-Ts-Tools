@@ -10,62 +10,11 @@
 #include <QListView>
 #include <QSslSocket>
 #include <QMessageBox>
+#include "helpdialog.h"
 
 QString detectLanguage(const QString &fileName)
 {
-    QMap<QString, QString> languageMap;
-    languageMap["en"] = u8"English";
-    languageMap["zh_CN"] = u8"中文";
-    languageMap["zh_TW"] = u8"中文繁体";
-    languageMap["zh_HK"] = u8"粤语";
-    languageMap["es"] = u8"西班牙语";
-    languageMap["pl"] = u8"波兰语";
-    languageMap["ja"] = u8"日语";
-    languageMap["de"] = u8"德语";
-    languageMap["ko"] = u8"韩语";
-    languageMap["it"] = u8"意大利语";
-    languageMap["fr"] = u8"法语";
-    languageMap["ru"] = u8"俄语";
-    languageMap["pt"] = u8"葡萄牙语";
-    languageMap["pt_BR"] = u8"葡萄牙语";
-    languageMap["fi"] = u8"芬兰语";
-    languageMap["vi"] = u8"越南语";
-//    languageMap["tr"] = u8"土耳其语";
-    languageMap["th"] = u8"泰语";
-    languageMap["hu"] = u8"匈牙利语";
-    languageMap["sv"] = u8"瑞典语";
-    //languageMap["sk"] = u8"斯洛伐克语";
-    languageMap["ro"] = u8"罗马尼亚语";
-//    languageMap["ms"] = u8"马来语";
-
-    languageMap["ar_sa"] = u8"阿拉伯语";
-    languageMap["ar_iq"] = u8"阿拉伯语";
-    languageMap["ar_eg"] = u8"阿拉伯语";
-    languageMap["ar_ly"] = u8"阿拉伯语";
-    languageMap["ar_dz"] = u8"阿拉伯语";
-    languageMap["ar_ma"] = u8"阿拉伯语";
-    languageMap["ar_tn"] = u8"阿拉伯语";
-    languageMap["ar_om"] = u8"阿拉伯语";
-    languageMap["ar_ye"] = u8"阿拉伯语";
-    languageMap["ar_sy"] = u8"阿拉伯语";
-    languageMap["ar_jo"] = u8"阿拉伯语";
-    languageMap["ar_lb"] = u8"阿拉伯语";
-    languageMap["ar_kw"] = u8"阿拉伯语";
-    languageMap["ar_ae"] = u8"阿拉伯语";
-    languageMap["ar_bh"] = u8"阿拉伯语";
-    languageMap["ar_qa"] = u8"阿拉伯语";
-
-    languageMap["af"] = u8"荷兰语";//南非
-    languageMap["nl"] = u8"荷兰语";//标准
-    languageMap["nl_be"] = u8"荷兰语";//比利时
-
-    languageMap["et"] = u8"爱沙尼亚语";
-    languageMap["bg"] = u8"保加利亚语";
-    languageMap["cs"] = u8"捷克语";
-    languageMap["da"] = u8"丹麦语";
-    languageMap["el"] = u8"希腊语";
-
-
+    QMap<QString, QString> languageMap = AppObject::instance()->languageMap_ts;
 
     QStringList list = fileName.split("_");
     QString languageCode = fileName.split("_").last().split(".").first();
@@ -75,6 +24,7 @@ QString detectLanguage(const QString &fileName)
     }
 
     return languageMap.value(languageCode, "其他");
+
 }
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -91,36 +41,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->youdaoTipLabel->setVisible(false);
     ui->comboBox->setView(new QListView());
+    QMap<QString, QString> languageMap_baidu = AppObject::instance()->languageMap_baidu;
 
-    ui->comboBox->addItem(u8"English", "en");
-    ui->comboBox->addItem(u8"中文", "zh");
-    ui->comboBox->addItem(u8"粤语", "yue");
-    ui->comboBox->addItem(u8"文言文", "wyw");
-    ui->comboBox->addItem(u8"日语", "jp");
-    ui->comboBox->addItem(u8"韩语", "kor");
-    ui->comboBox->addItem(u8"法语", "fra");
-    ui->comboBox->addItem(u8"西班牙语", "spa");
-    ui->comboBox->addItem(u8"泰语", "th");
-    ui->comboBox->addItem(u8"阿拉伯语", "ara");
-    ui->comboBox->addItem(u8"俄语", "ru");
-    ui->comboBox->addItem(u8"葡萄牙语", "pt");
-    ui->comboBox->addItem(u8"德语", "de");
-    ui->comboBox->addItem(u8"意大利语", "it");
-    ui->comboBox->addItem(u8"希腊语", "el");
-    ui->comboBox->addItem(u8"荷兰语", "nl");
-    ui->comboBox->addItem(u8"波兰语", "pl");
-    ui->comboBox->addItem(u8"保加利亚语", "bul");
-    ui->comboBox->addItem(u8"爱沙尼亚语", "est");
-    ui->comboBox->addItem(u8"丹麦语", "dan");
-    ui->comboBox->addItem(u8"芬兰语", "fin");
-    ui->comboBox->addItem(u8"捷克语", "cs");
-    ui->comboBox->addItem(u8"罗马尼亚语", "rom");
-    ui->comboBox->addItem(u8"斯洛文尼亚语", "slo");
-    ui->comboBox->addItem(u8"瑞典语", "swe");
-    ui->comboBox->addItem(u8"匈牙利语", "hu");
-    ui->comboBox->addItem(u8"中文繁体", "cht");
-    ui->comboBox->addItem(u8"越南语", "vie");
-    ui->comboBox->addItem(u8"其他", "other");
+    // 开始往表格中填充数据，遍历QMap
+    QMap<QString, QString>::const_iterator it;
+    for (it = languageMap_baidu.constBegin(); it!= languageMap_baidu.constEnd(); ++it)
+    {
+        ui->comboBox->addItem(it.key(), it.value());
+    }
 
     connect(ui->comboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &MainWindow::onComboBoxChanged);
     connect(m_pExcelWorker, &ExcelRW::error, this, &MainWindow::onReceiveMsg);
@@ -131,6 +59,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(app,&AppObject::sigDebug,this,&MainWindow::slotDebug);
 
     setWindowTitle(u8"星火Qt翻译工具");
+
+    ui->generateBtn_2->setVisible(false);
+    ui->tsUpdateBtn_2->setVisible(false);
 }
 
 MainWindow::~MainWindow()
@@ -606,4 +537,15 @@ void MainWindow::on_clearPl_clicked()
 {
     m_waitTs.clear();
     ui->lbl_fileCount->setText(QString::number(m_waitTs.count()));
+}
+
+void MainWindow::on_tsKBtn_clicked()
+{
+    on_translateBtn_clicked();
+}
+
+void MainWindow::on_tsHelpBtn_clicked()
+{
+    HelpDialog dialog;
+    dialog.exec();
 }

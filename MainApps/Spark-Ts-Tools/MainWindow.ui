@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>920</width>
-    <height>726</height>
+    <width>922</width>
+    <height>678</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -117,25 +117,46 @@ color: #FF0000;
           </layout>
          </item>
          <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_10">
+           <item>
+            <widget class="QLabel" name="label_6">
+             <property name="text">
+              <string>需要配置下方百度翻译的id和密钥，才能进行翻译，否则无法进行翻译！！！，步骤3和下方百度翻译的功能相同,需要注意目标语言的选择</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
           <layout class="QHBoxLayout" name="horizontalLayout_3">
            <item>
             <widget class="QPushButton" name="tsImportBtn">
              <property name="text">
-              <string>ts导入</string>
+              <string>步骤1:ts导入到程序缓存</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QPushButton" name="generateBtn">
              <property name="text">
-              <string>excel生成</string>
+              <string>步骤2:excel生成</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="tsKBtn">
+             <property name="text">
+              <string>步骤3:翻译</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QPushButton" name="tsUpdateBtn">
              <property name="text">
-              <string>译文写入</string>
+              <string>步骤4:译文写入</string>
              </property>
             </widget>
            </item>
@@ -147,7 +168,7 @@ color: #FF0000;
       <item>
        <widget class="QGroupBox" name="groupBox_3">
         <property name="title">
-         <string>文件夹</string>
+         <string>批量处理</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
@@ -193,11 +214,25 @@ color: #FF0000;
           </layout>
          </item>
          <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_9">
+           <item>
+            <widget class="QLabel" name="label_5">
+             <property name="text">
+              <string>建议ts的目录和excel的目录为同一目录，点击下方一键完成即可ts生成excel，在线翻译，从excel导回ts的所有操作，需要留意右侧日志打印和下方剩余翻译文件的数量归0即翻译完成</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
           <layout class="QHBoxLayout" name="horizontalLayout_7">
            <item>
-            <widget class="QPushButton" name="clearPl">
+            <widget class="QPushButton" name="plTrans">
              <property name="text">
-              <string>清空批量翻译队列</string>
+              <string>生成+翻译+导入(一键完成所有)</string>
              </property>
             </widget>
            </item>
@@ -216,9 +251,9 @@ color: #FF0000;
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="plTrans">
+            <widget class="QPushButton" name="clearPl">
              <property name="text">
-              <string>生成+翻译+导入(一键完成所有)</string>
+              <string>清空批量翻译队列</string>
              </property>
             </widget>
            </item>
@@ -260,72 +295,48 @@ color: #FF0000;
          <string>百度翻译(翻译内容为excel第3列)</string>
         </property>
         <layout class="QGridLayout" name="gridLayout">
-         <item row="0" column="0">
+         <item row="3" column="1" colspan="2">
+          <widget class="QComboBox" name="comboBox"/>
+         </item>
+         <item row="1" column="0">
           <widget class="QLabel" name="youdaoAppIdLabel">
            <property name="text">
             <string>应用ID</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="1" colspan="4">
-          <widget class="QLineEdit" name="youdaoAppIdlineEdit">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="youdaoKeyLabel">
-           <property name="text">
-            <string>应用密钥</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1" colspan="4">
-          <widget class="QLineEdit" name="youdaoKeylineEdit">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="youdaoDstLabel">
-           <property name="text">
-            <string>目标语言</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1" colspan="2">
-          <widget class="QComboBox" name="comboBox"/>
-         </item>
-         <item row="2" column="3">
+         <item row="3" column="3">
           <widget class="QLabel" name="youdaoDstLabel_2">
            <property name="text">
             <string>其他语言查询官方文档填写代码</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="4">
+         <item row="2" column="1" colspan="4">
+          <widget class="QLineEdit" name="youdaoKeylineEdit">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="youdaoDstLabel">
+           <property name="text">
+            <string>目标语言</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="youdaoKeyLabel">
+           <property name="text">
+            <string>应用密钥</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="4">
           <widget class="QLineEdit" name="otherLineEdit"/>
          </item>
-         <item row="3" column="0" colspan="2">
-          <widget class="QPushButton" name="translateBtn">
-           <property name="text">
-            <string>百度翻译</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="2" colspan="3">
-          <widget class="QLabel" name="youdaoTipLabel">
-           <property name="text">
-            <string>翻译完成，点击上面的excel生成到翻译所在列，点击译文写入输出到ts文件</string>
-           </property>
-           <property name="wordWrap">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="0" colspan="5">
+         <item row="7" column="0" colspan="5">
           <widget class="QLabel" name="label_3">
            <property name="text">
             <string>单个导入请按照ts导入-&gt;excel生成(加入程序缓存)-&gt;开始翻译[在下方](请看日志生成结束,默认结束后会到处excel加译文写入写入ts文件)，如果有不正确的地方请手动修改第三列的翻译内容并保存excel文件，之后再译文写入。批量处理请选择对应多个ts文件所在的文件夹，建议点击“生成+翻译+导入”按钮，一键生成多国语言(批量处理的语言只有combox中写了的，其他需要单个对应百度api来处理)</string>
@@ -335,8 +346,82 @@ color: #FF0000;
            </property>
           </widget>
          </item>
+         <item row="6" column="0" colspan="2">
+          <widget class="QPushButton" name="translateBtn">
+           <property name="text">
+            <string>百度翻译</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="2" colspan="3">
+          <widget class="QLabel" name="youdaoTipLabel">
+           <property name="text">
+            <string>翻译完成，点击上面的excel生成到翻译所在列，点击译文写入输出到ts文件</string>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1" colspan="4">
+          <widget class="QLineEdit" name="youdaoAppIdlineEdit">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
         </layout>
        </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_11">
+        <item>
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="tsHelpBtn">
+          <property name="text">
+           <string>翻译对照帮助</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
       </item>
      </layout>
     </item>

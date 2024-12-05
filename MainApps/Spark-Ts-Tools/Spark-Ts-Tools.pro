@@ -32,7 +32,8 @@ SOURCES += main.cpp\
     DataModel/TranslateModel.cpp \
     NetWorker.cpp \
     TranslateWorker.cpp \
-    appobject.cpp
+    appobject.cpp \
+    helpdialog.cpp
 
 HEADERS  += MainWindow.h \
     XmlRW.h \
@@ -40,9 +41,11 @@ HEADERS  += MainWindow.h \
     DataModel/TranslateModel.h \
     NetWorker.h \
     TranslateWorker.h \
-    appobject.h
+    appobject.h \
+    helpdialog.h
 
-FORMS    += MainWindow.ui
+FORMS    += MainWindow.ui \
+    helpdialog.ui
 
 
 

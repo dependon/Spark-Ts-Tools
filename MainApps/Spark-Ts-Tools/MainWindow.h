@@ -53,6 +53,10 @@ private slots:
 
     void on_clearPl_clicked();
 
+    void on_tsKBtn_clicked();
+
+    void on_tsHelpBtn_clicked();
+
 private:
     Ui::MainWindow*         ui;
 

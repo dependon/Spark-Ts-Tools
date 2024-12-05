@@ -1,4 +1,4 @@
-#ifndef APPOBJECT_H
+﻿#ifndef APPOBJECT_H
 #define APPOBJECT_H
 
 #include <QApplication>
@@ -20,6 +20,8 @@ class AppObject :public QObject
 public:
     static AppObject *instance();
     AppObject(QObject * object = nullptr);
+    QMap<QString, QString> languageMap_ts;
+    QMap<QString, QString> languageMap_baidu;
 signals:
     void sigDebug(const QString & info);
 private:
