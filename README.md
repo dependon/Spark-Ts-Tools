@@ -1,5 +1,12 @@
 # 翻译文件（.ts）和Excel文件的相互转换工具(百度api版)
 
+# 1.0.2 
+
+1.对于已经翻译过了的不会覆盖原有翻译
+2.有道api换成了百度api
+3.支持一键翻译多个ts文件，并写入ts文件
+
+
 ## 克隆和修改来源
 
 源代码目录: https://github.com/Longxr/TSFileEditor/
