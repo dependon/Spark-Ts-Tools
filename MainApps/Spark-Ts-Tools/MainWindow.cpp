@@ -22,6 +22,8 @@ QString detectLanguage(const QString &fileName)
     {
         languageCode = list.at(list.size()-2)+"_"+languageCode;
     }
+    qDebug()<< list;
+    qDebug()<<languageCode;
 
     return languageMap.value(languageCode, "其他");
 

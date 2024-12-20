@@ -14,7 +14,7 @@ AppObject::AppObject(QObject *object)
     :QObject(object)
 {
 
-    languageMap_ts["en"] = u8"English";
+    languageMap_ts["en"] = u8"英语";
     languageMap_ts["zh_CN"] = u8"中文";
     languageMap_ts["zh_TW"] = u8"中文繁体";
     languageMap_ts["zh_HK"] = u8"中文繁体";
@@ -68,7 +68,7 @@ AppObject::AppObject(QObject *object)
 
 
     // 添加各种语言对应的键值对，键为显示的语言名称，值为对应的语言代码
-    languageMap_baidu.insert(u8"English", "en");
+    languageMap_baidu.insert(u8"英语", "en");
     languageMap_baidu.insert(u8"中文", "zh");
     languageMap_baidu.insert(u8"粤语", "yue");
     languageMap_baidu.insert(u8"文言文", "wyw");
