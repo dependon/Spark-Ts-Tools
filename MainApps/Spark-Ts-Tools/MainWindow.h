@@ -28,7 +28,6 @@ private slots:
     void on_excelLookBtn_clicked();
     void on_generateBtn_clicked();
     void on_tsUpdateBtn_clicked();
-    void on_translateBtn_clicked();
     void on_tsImportBtn_clicked();
 
     void onComboBoxChanged(int);
@@ -56,6 +55,16 @@ private slots:
     void on_tsKBtn_clicked();
 
     void on_tsHelpBtn_clicked();
+
+    void on_btn_ts_clicked();
+
+    void on_btn_only_clicked();
+
+    void on_btn_piliang_clicked();
+
+    void on_hideBoxId_stateChanged(int arg1);
+
+    void on_hideBoxCode_stateChanged(int arg1);
 
 private:
     Ui::MainWindow*         ui;
