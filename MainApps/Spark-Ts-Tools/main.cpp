@@ -71,6 +71,6 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
     qDebug() << u8"OpenSSL sslLibraryVersionNumber:" << QSslSocket::sslLibraryBuildVersionString();
-    qDebug() << u8"OpenSSL支持情况:" << QSslSocket::supportsSsl();
+    qDebug() << u8"OpenSSL support:" << QSslSocket::supportsSsl();
     return a.exec();
 }

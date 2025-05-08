@@ -25,7 +25,7 @@ QString detectLanguage(const QString &fileName)
     qDebug()<< list;
     qDebug()<<languageCode;
 
-    return languageMap.value(languageCode, "其他");
+    return languageMap.value(languageCode, QObject::tr(u8"其他"));
 
 }
 
@@ -60,7 +60,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(app,&AppObject::sigDebug,this,&MainWindow::slotDebug);
 
-    setWindowTitle(u8"星火Qt翻译工具");
+    setWindowTitle(tr(u8"星火Qt翻译工具"));
 
     ui->generateBtn_2->setVisible(false);
     ui->tsUpdateBtn_2->setVisible(false);
@@ -90,10 +90,10 @@ void MainWindow::TranslatFunction()
 
     re = m_pExcelWorker->ImportFromXlsx(m_transList, ui->excelPathEdit->text());
     if(re) {
-        onReceiveMsg("import excel file success,Translation Ing ...... ");
+        onReceiveMsg(tr(u8"导入 excel 文件成功,正在翻译...... "));
     }
     else {
-        onReceiveMsg("import excel file failed");
+        onReceiveMsg(tr(u8"导入 excel 文件失败"));
     }
 
 
@@ -101,18 +101,18 @@ void MainWindow::TranslatFunction()
     m_pTranslateWorker->SetIdKey(ui->youdaoAppIdlineEdit->text(), ui->youdaoKeylineEdit->text());
     re = m_pTranslateWorker->Translate("auto", m_toLanguage);
     if(re) {
-        onReceiveMsg("translate excel file success");
+        onReceiveMsg(tr(u8"翻译 excel 文件成功"));
         ui->youdaoTipLabel->setVisible(true);
     }
     else {
-        onReceiveMsg("translate excel file failed");
+        onReceiveMsg("翻译 excel 文件失败");
     }
 }
 
 void MainWindow::on_tsLookBtn_clicked()
 {
     //const QString documentLocation = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
-    QString fileName = QFileDialog::getOpenFileName(this, tr("select .ts file"), nullptr, "Files (*.ts)");
+    QString fileName = QFileDialog::getOpenFileName(this, tr(u8"select .ts file"), nullptr, "Files (*.ts)");
 
     if(fileName.isEmpty()){
         return;
@@ -125,7 +125,7 @@ void MainWindow::on_tsLookBtn_clicked()
 void MainWindow::on_excelLookBtn_clicked()
 {
     //const QString documentLocation = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
-    QString fileName = QFileDialog::getOpenFileName(this, tr("select excel file"), nullptr, "Files (*.xlsx)");
+    QString fileName = QFileDialog::getOpenFileName(this, tr(u8"select excel file"), nullptr, "Files (*.xlsx)");
 
     if(fileName.isEmpty()){
         return;
@@ -133,7 +133,7 @@ void MainWindow::on_excelLookBtn_clicked()
     else{
         QFileInfo info(fileName);
         if ("xlsx" != info.suffix()){
-            onReceiveMsg("File type is not supported");
+            onReceiveMsg(tr(u8"文件类型不支持"));
             return;
         }
     }
@@ -163,10 +163,10 @@ void MainWindow::on_generateBtn_clicked()
     }
     re = m_pExcelWorker->ExportToXlsx(m_transList, ui->excelPathEdit->text());
     if(re) {
-        onReceiveMsg("export excel file success");
+        onReceiveMsg(tr(u8"导出 excel 文件成功"));
         ui->youdaoTipLabel->setVisible(false);
     } else {
-        onReceiveMsg("export excel file failed");
+        onReceiveMsg(tr(u8"导出 excel 文件失败"));
     }
 }
 
@@ -183,10 +183,10 @@ void MainWindow::on_tsUpdateBtn_clicked()
 
     re = m_pExcelWorker->ImportFromXlsx(m_transList, ui->excelPathEdit->text());
     if(re) {
-        onReceiveMsg("import excel file success");
+        onReceiveMsg(tr(u8"导入 excel 文件成功"));
         ui->youdaoTipLabel->setVisible(false);
     } else {
-        onReceiveMsg("import excel file failed");
+        onReceiveMsg(tr(u8"导入 excel 文件失败"));
     }
 
     //update ts file
@@ -197,9 +197,9 @@ void MainWindow::on_tsUpdateBtn_clicked()
     re = m_pXmlWorker->ExportToTS(m_transList, ui->tsPathEdit->text());
 
     if(re) {
-        onReceiveMsg("update .ts file success");
+        onReceiveMsg(tr(u8"更新 .ts 文件 成功"));
     } else {
-        onReceiveMsg("update .ts file failed");
+        onReceiveMsg(tr(u8"更新 .ts 文件 失败"));
     }
 
 }
@@ -229,7 +229,7 @@ void MainWindow::on_tsImportBtn_clicked()
 
     QFileInfo info(ui->tsPathEdit->text());
     if (!info.isFile() || "ts" != info.suffix()){
-        onReceiveMsg(tr("文件类型不支持"));
+        onReceiveMsg(tr(u8"文件类型不支持"));
         return;
     }
 
@@ -237,9 +237,9 @@ void MainWindow::on_tsImportBtn_clicked()
     re = m_pXmlWorker->ImportFromTS(m_transList, ui->tsPathEdit->text());
 
     if(re) {
-        onReceiveMsg(tr("导入 .ts 文件成功"));
+        onReceiveMsg(tr(u8"导入 .ts 文件成功"));
     } else {
-        onReceiveMsg(tr("导入 .ts 文件失败"));
+        onReceiveMsg(tr(u8"导入 .ts 文件失败"));
     }
 }
 
@@ -252,7 +252,7 @@ void MainWindow::onReceiveMsg(const QString &msg)
 void MainWindow::on_tsDirLookBtn_clicked()
 {
     const QString documentLocation = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
-    QString dirName = QFileDialog::getExistingDirectory(this, tr("选择 .ts 目录"), documentLocation);
+    QString dirName = QFileDialog::getExistingDirectory(this, tr(u8"选择 .ts 目录"), documentLocation);
 
     if(dirName.isEmpty()){
         return;
@@ -264,7 +264,7 @@ void MainWindow::on_tsDirLookBtn_clicked()
 void MainWindow::on_excelDirBtn_clicked()
 {
     const QString documentLocation = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
-    QString fileName = QFileDialog::getOpenFileName(this, tr("选择Excel"), documentLocation, "Files (*.xlsx)");
+    QString fileName = QFileDialog::getOpenFileName(this, tr(u8"选择Excel"), documentLocation, "Files (*.xlsx)");
 
     if(fileName.isEmpty()){
         return;
@@ -272,7 +272,7 @@ void MainWindow::on_excelDirBtn_clicked()
     else{
         QFileInfo info(fileName);
         if ("xlsx" != info.suffix()){
-            onReceiveMsg(tr("文件类型不支持"));
+            onReceiveMsg(tr(u8"文件类型不支持"));
             return;
         }
     }
@@ -286,13 +286,13 @@ void MainWindow::on_generateBtn_2_clicked()
 
     QFileInfo tsDirinfo(ui->tsDirEdit->text());
     if (!tsDirinfo.isDir()){
-        onReceiveMsg(tr("ts 目录为空"));
+        onReceiveMsg(tr(u8"ts 目录为空"));
         return;
     }
 
     QFileInfo excelinfo(ui->excelDirEdit->text());
     if (!excelinfo.exists()){
-        onReceiveMsg("excel file is empty");
+        onReceiveMsg("excel 文件是空的");
         return;
     }
     qDebug() << excelinfo.filePath() << excelinfo.absoluteDir().path();
@@ -304,7 +304,7 @@ void MainWindow::on_generateBtn_2_clicked()
     tsdir.setNameFilters(filters);
 
     if (tsdir.count() <= 0) {
-        onReceiveMsg("ts dir ts file is 0");
+        onReceiveMsg(tr(u8"ts 文件的ts文件是0"));
         return;
     }
 
@@ -314,9 +314,9 @@ void MainWindow::on_generateBtn_2_clicked()
         re = m_pXmlWorker->ImportFromTS(m_transList, info.absoluteFilePath());
 
         if(re) {
-            onReceiveMsg("import " + info.fileName() + " success");
+            onReceiveMsg(tr(u8"导入 ") + info.fileName() + tr(u8" 成功"));
         } else {
-            onReceiveMsg("import " + info.fileName() + " failed");
+            onReceiveMsg(tr(u8"导入 ") + info.fileName() + tr(u8" 失败"));
         }
 
         //generate excel file
@@ -324,10 +324,10 @@ void MainWindow::on_generateBtn_2_clicked()
         QString excelFileName = excelinfo.absoluteDir().path() + "/" + info.baseName() + ".xlsx";
         re = m_pExcelWorker->ExportToXlsx(m_transList, excelFileName);
         if(re) {
-            onReceiveMsg("export " + excelFileName + " success");
+            onReceiveMsg(tr(u8"导入 ") + excelFileName + tr(u8" 成功"));
             ui->youdaoTipLabel->setVisible(false);
         } else {
-            onReceiveMsg("export " + excelFileName + " failed");
+            onReceiveMsg(tr(u8"导入 ") + excelFileName + tr(u8" 失败"));
         }
     }
 }
@@ -338,13 +338,13 @@ void MainWindow::on_tsUpdateBtn_2_clicked()
 
     QFileInfo tsDirinfo(ui->tsDirEdit->text());
     if (!tsDirinfo.isDir()){
-        onReceiveMsg("ts dir is empty");
+        onReceiveMsg(tr(u8"ts 目录是空的"));
         return;
     }
 
     QFileInfo excelDirinfo(ui->excelDirEdit->text());
     if (!excelDirinfo.exists()){
-        onReceiveMsg("excel path is empty");
+        onReceiveMsg(tr(u8"excel 路径是空的"));
         return;
     }
 
@@ -355,7 +355,7 @@ void MainWindow::on_tsUpdateBtn_2_clicked()
     tsdir.setNameFilters(filters);
 
     if (tsdir.count() <= 0) {
-        onReceiveMsg("ts dir ts file is 0");
+        onReceiveMsg(tr(u8"ts 文件的ts文件是0"));
         return;
     }
 
@@ -385,7 +385,7 @@ void MainWindow::on_tsUpdateBtn_2_clicked()
         }
     }
 
-    onReceiveMsg("all ts file update finish");
+    onReceiveMsg(tr(u8"所有ts文件更新完成"));
 }
 
 void MainWindow::readConfig()
@@ -478,7 +478,7 @@ void MainWindow::on_plTrans_clicked()
     if (!m_waitTs.isEmpty()) {
         auto firstKey = m_waitTs.begin().key();
         auto firstValue = m_waitTs.begin().value();
-        qDebug() << tr("First key-value pair: ") << firstKey << " : " << firstValue;
+        qDebug() << tr(u8"First key-value pair: ") << firstKey << " : " << firstValue;
         m_waitTs.erase(m_waitTs.begin());
         ui->tsPathEdit->setText(firstKey);
         ui->excelPathEdit->setText(firstValue);
@@ -486,7 +486,7 @@ void MainWindow::on_plTrans_clicked()
         on_generateBtn_clicked();
         TranslatFunction();
     } else {
-        qDebug() << tr("不存在可翻译的文件.");
+        qDebug() << tr(u8"不存在可翻译的文件.");
     }
 
     ui->lbl_fileCount->setText(QString::number(m_waitTs.count()));
@@ -494,7 +494,7 @@ void MainWindow::on_plTrans_clicked()
 
 void MainWindow::onTransEnd()
 {
-    onReceiveMsg(tr("翻译 完成 ...... "));
+    onReceiveMsg(tr(u8"翻译 完成 ...... "));
     on_generateBtn_clicked();
     on_tsUpdateBtn_clicked();
 
@@ -511,7 +511,7 @@ void MainWindow::onTransEnd()
         on_generateBtn_clicked();
         TranslatFunction();
     } else {
-        qDebug() << tr("翻译结束.");
+        qDebug() << tr(u8"翻译结束.");
     }
     ui->lbl_fileCount->setText(QString::number(m_waitTs.count()));
 }
@@ -541,7 +541,7 @@ void MainWindow::on_tsKBtn_clicked()
     }
     else
     {
-         QMessageBox::critical(this, tr("错误"), tr("需要等待当前批量翻译完成!"));
+         QMessageBox::critical(this, tr(u8"错误"), tr(u8"需要等待当前批量翻译完成!"));
     }
 
 }
@@ -554,9 +554,9 @@ void MainWindow::on_tsHelpBtn_clicked()
 
 void MainWindow::on_btn_ts_clicked()
 {
-    QString sourceTsPath = QFileDialog::getOpenFileName(this, tr("select .ts file"), nullptr, "Files (*.ts)");
+    QString sourceTsPath = QFileDialog::getOpenFileName(this, tr(u8"select .ts file"), nullptr, "Files (*.ts)");
     if (sourceTsPath.isEmpty()) {
-        onReceiveMsg(tr("请先选择源 ts 文件"));
+        onReceiveMsg(tr(u8"请先选择源 ts 文件"));
         return;
     }
 
@@ -660,22 +660,22 @@ void MainWindow::on_btn_ts_clicked()
                 }
 
                 if (xmlReader.hasError()) {
-                    onReceiveMsg(QString(tr("处理文件 %1 时出现 XML 错误: %2")).arg(targetFileName).arg(xmlReader.errorString()));
+                    onReceiveMsg(QString(tr(u8"处理文件 %1 时出现 XML 错误: %2")).arg(targetFileName).arg(xmlReader.errorString()));
                 }
 
                 file.close();
-                onReceiveMsg(QString(tr("成功处理文件 %1)")).arg(targetFileName));
+                onReceiveMsg(QString(tr(u8"成功处理文件 %1)")).arg(targetFileName));
 
             } else {
-                onReceiveMsg(QString(tr("无法打开文件 %1 进行读写")).arg(targetFileName));
+                onReceiveMsg(QString(tr(u8"无法打开文件 %1 进行读写")).arg(targetFileName));
             }
 
         } else {
-            onReceiveMsg(QString(tr("复制文件 %1 到 %2 失败")).arg(sourceFileInfo.fileName()).arg(targetFileName));
+            onReceiveMsg(QString(tr(u8"复制文件 %1 到 %2 失败")).arg(sourceFileInfo.fileName()).arg(targetFileName));
         }
     }
 
-    onReceiveMsg(tr("批量生成 ts 文件完成"));
+    onReceiveMsg(tr(u8"批量生成 ts 文件完成"));
 }
 
 void MainWindow::on_btn_only_clicked()

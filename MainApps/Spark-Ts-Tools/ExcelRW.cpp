@@ -102,9 +102,9 @@ bool ExcelRW::ExportToXlsx(QList<TranslateModel>& list, QString strPath)
         return false;
     }
 
-    QString strHeaderkey = tr("Key");
-    QString strHeaderSource = tr("Source");
-    QString strHeaderTranslate = tr("Translate");
+    QString strHeaderkey = "Key";
+    QString strHeaderSource = "Source";
+    QString strHeaderTranslate = "Translate";
 
     QXlsx::Document xlsx;
     xlsx.addSheet("Sheet1");
