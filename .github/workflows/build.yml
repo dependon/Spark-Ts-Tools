@@ -1,0 +1,81 @@
+name: Build Multi-Platform
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            qt-version: 5.15.2
+            artifact-name: spark-ts-tools-linux
+            executable: spark-ts-tools
+          - os: windows-latest
+            qt-version: 5.15.2
+            artifact-name: spark-ts-tools-windows
+            executable: spark-ts-tools.exe
+          - os: macos-latest
+            qt-version: 5.15.2
+            artifact-name: spark-ts-tools-macos
+            executable: spark-ts-tools
+        
+    runs-on: ${{ matrix.os }}
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+      with:
+        version: ${{ matrix.qt-version }}
+        cache: true
+        
+    - name: Install dependencies (Ubuntu)
+      if: runner.os == 'Linux'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential libgl1-mesa-dev libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0
+        
+    - name: Build project (Linux/macOS)
+      if: runner.os != 'Windows'
+      run: |
+        qmake Spark-Ts-Tools.pro CONFIG+=release
+        make -j$(nproc)
+        
+    - name: Build project (Windows)
+      if: runner.os == 'Windows'
+      run: |
+        qmake Spark-Ts-Tools.pro CONFIG+=release
+        nmake
+        
+    - name: Package artifacts (Windows)
+      if: runner.os == 'Windows'
+      run: |
+        mkdir package
+        copy bin\${{ matrix.executable }} package\
+        copy ssl\*.dll package\
+        windeployqt package\${{ matrix.executable }}
+        
+    - name: Package artifacts (Linux)
+      if: runner.os == 'Linux'
+      run: |
+        mkdir package
+        cp bin/${{ matrix.executable }} package/
+        
+    - name: Package artifacts (macOS)
+      if: runner.os == 'macOS'
+      run: |
+        mkdir package
+        cp bin/${{ matrix.executable }} package/
+        
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ matrix.artifact-name }}
+        path: package/
