@@ -15,14 +15,17 @@ jobs:
             qt-version: 5.15.2
             artifact-name: spark-ts-tools-linux
             executable: spark-ts-tools
+            qt-arch: ''
           - os: windows-latest
             qt-version: 5.15.2
             artifact-name: spark-ts-tools-windows
             executable: spark-ts-tools.exe
+            qt-arch: win32_msvc2019
           - os: macos-latest
             qt-version: 5.15.2
             artifact-name: spark-ts-tools-macos
             executable: spark-ts-tools
+            qt-arch: ''
         
     runs-on: ${{ matrix.os }}
     
@@ -35,7 +38,18 @@ jobs:
       with:
         version: ${{ matrix.qt-version }}
         cache: true
+        arch: ${{ matrix.qt-arch || 'default' }}
         
+    - name: Setup MSVC (Windows)
+      if: runner.os == 'Windows'
+      uses: microsoft/setup-msbuild@v1
+      
+    - name: Setup MSVC environment (Windows)
+      if: runner.os == 'Windows'
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: x86
+      
     - name: Install dependencies (Ubuntu)
       if: runner.os == 'Linux'
       run: |
