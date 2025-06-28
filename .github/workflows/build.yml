@@ -18,7 +18,7 @@ jobs:
             artifact-name: spark-ts-tools-windows
             executable: spark-ts-tools.exe
           - os: ubuntu-latest
-            qt-arch: ''
+            qt-arch: linux_gcc_64
             artifact-name: spark-ts-tools-linux
             executable: spark-ts-tools
     runs-on: ${{ matrix.os }}
