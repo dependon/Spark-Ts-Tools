@@ -447,7 +447,7 @@ void MainWindow::on_otherLineEdit_textChanged(const QString &arg1)
 void MainWindow::on_tsPathEdit_textChanged(const QString &arg1)
 {
     QString strName = detectLanguage(arg1);
-    if(ui->comboBox->findText(strName))
+    //if(ui->comboBox->findText(strName))
     {
         ui->comboBox->setCurrentText(strName);
     }
